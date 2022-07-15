@@ -6,7 +6,6 @@ const Component = videojs.getComponent('Component');
  * a marker point list displayed on right of video DOM.
  */
 class MarkerPanel extends Component {
-
   /**
    * generate a {@link MarkerPanel} instance
    *
@@ -20,7 +19,7 @@ class MarkerPanel extends Component {
       options.markers = [];
     }
 
-    return new MarkerPanel(player, {markers: options.markers});
+    return new MarkerPanel(player, { markers: options.markers });
   }
 
   /**
@@ -41,10 +40,25 @@ class MarkerPanel extends Component {
       markerItemList.push(this.createMarkerItem(markerOption.offset, markerOption.data));
     }
 
-    this.markerList = videojs.dom.createEl('div', {className: 'vjs-markers-panel-list'}, {}, markerItemList);
+    this.markerList = videojs.dom.createEl(
+      'div',
+      { className: 'vjs-markers-panel-list' },
+      {},
+      markerItemList
+    );
 
-    this.el_.appendChild(videojs.dom.createEl('div', {className: 'vjs-markers-panel-title'}, {}, '打点记录'));
-    this.el_.appendChild(videojs.dom.createEl('div', {className: 'vjs-markers-panel-subtitle'}, {}, '点击快速跳转至视频打点处'));
+    this.el_.appendChild(videojs.dom.createEl(
+      'div',
+      { className: 'vjs-markers-panel-title' },
+      {},
+      'Marks'
+    ));
+    this.el_.appendChild(videojs.dom.createEl(
+      'div',
+      { className: 'vjs-markers-panel-subtitle' },
+      {},
+      'Points of interest'
+    ));
     this.el_.appendChild(this.markerList);
   }
 
@@ -67,25 +81,37 @@ class MarkerPanel extends Component {
    * @return {HTMLDivElement} return lsit item DOM
    */
   createMarkerItem(offset, data) {
-    const timeDOM = videojs.dom.createEl('div', {className: 'vjs-markers-panel-item-time'}, {'data-offset': offset}, videojs.formatTime(offset, 600));
-    const contentDOM = videojs.dom.createEl('div', {className: 'vjs-markers-panel-item-content'}, {'data-offset': offset}, data.content);
+    const timeDOM = videojs.dom.createEl(
+      'div',
+      { className: 'vjs-markers-panel-item-time' },
+      { 'data-offset': offset },
+      videojs.formatTime(offset, 600)
+    );
+    const contentDOM = videojs.dom.createEl(
+      'div',
+      { className: 'vjs-markers-panel-item-content' },
+      { 'data-offset': offset },
+      data.content
+    );
     const itemDOM = videojs.dom.createEl(
       'div',
-      {className: 'vjs-markers-panel-list-item'},
-      {'data-offset': offset},
+      { className: 'vjs-markers-panel-list-item' },
+      { 'data-offset': offset },
       [timeDOM, contentDOM]
     );
 
-    itemDOM.addEventListener('click', (ev) => {
-      const dom = ev.target;
+    itemDOM.addEventListener(
+      'click',
+      (ev) => {
+        const dom = ev.target;
 
-      this.player_.currentTime(dom.dataset.offset);
-    }, false);
+        this.player_.currentTime(dom.dataset.offset);
+      },
+      false
+    );
 
     return itemDOM;
   }
 }
 
-export {
-  MarkerPanel
-};
+export { MarkerPanel };

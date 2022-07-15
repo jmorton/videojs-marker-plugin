@@ -1,7 +1,7 @@
 import videojs from 'video.js';
-import {MarkerBar} from './markerBar';
-import {version as VERSION} from '../package.json';
-import {MarkerPanel} from './MarkerPanel';
+import { MarkerBar } from './markerBar';
+import { version as VERSION } from '../package.json';
+import { MarkerPanel } from './MarkerPanel';
 
 const Plugin = videojs.getPlugin('plugin');
 
@@ -14,7 +14,6 @@ const defaults = {};
  * See: https://blog.videojs.com/feature-spotlight-advanced-plugins/
  */
 class MarkerPlugin extends Plugin {
-
   /**
    * Create a MarkerPlugin plugin instance.
    *
@@ -66,15 +65,24 @@ class MarkerPlugin extends Plugin {
   updateOptions(options) {
     this.options = videojs.mergeOptions(this.options, options);
 
-    if (this.markerBar) this.markerBar.dispose();
-    if (this.markerPanel) this.markerPanel.dispose();
+    if (this.markerBar) {
+      this.markerBar.dispose();
+    }
+    if (this.markerPanel) {
+      this.markerPanel.dispose();
+    }
 
     if (!(this.options.panel === false)) {
       this.player.addChild(this.createMarkersPanel());
     }
 
-    const container = this.player.getDescendant(['ControlBar', 'ProgressControl', 'SeekBar']);
-    this.createMarkerBar()
+    const container = this.player.getDescendant([
+      'ControlBar',
+      'ProgressControl',
+      'SeekBar'
+    ]);
+
+    this.createMarkerBar();
 
     container.addChild(this.markerBar);
   }

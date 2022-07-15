@@ -7,7 +7,6 @@ const TimeTooltip = videojs.getComponent('TimeTooltip');
  * use by {@link MarkerPoint}, defined content when mouse over {@link MarkerPoint}.
  */
 class MarkerPointTip extends Component {
-
   /**
    * generate a {@link MarkerPoint} instance
    *
@@ -28,7 +27,10 @@ class MarkerPointTip extends Component {
     this.addClass('vjs-marker-point-tip');
 
     this.timeToltip.el_.innerHTML = `
-      <p class="vjs-marker-point-tip-time">${videojs.formatTime(this.options.offset, 600)}</p>
+      <p class="vjs-marker-point-tip-time">${videojs.formatTime(
+    this.options.offset,
+    600
+  )}</p>
       <p class="vjs-marker-point-tip-content">${this.options.data.content}</p>
     `;
   }
@@ -38,7 +40,9 @@ class MarkerPointTip extends Component {
    * call this when init or window resize.
    */
   updatePosition() {
-    this.timeToltip.el_.style.left = `-${this.timeToltip.el_.getBoundingClientRect().width / 2}px`;
+    this.timeToltip.el_.style.left = `-${
+      this.timeToltip.el_.getBoundingClientRect().width / 2
+    }px`;
   }
 }
 
@@ -46,7 +50,6 @@ class MarkerPointTip extends Component {
  * {@link MarkerPoint} is point displayed in the {@link MarkerBar}
  */
 class MarkerPoint extends Component {
-
   /**
    * generate a {@link MarkerPoint} instance
    *
@@ -67,7 +70,12 @@ class MarkerPoint extends Component {
       data: this.data,
       offset: this.offset
     });
-    this.mouseDisplay = player.getDescendant(['ControlBar', 'ProgressControl', 'SeekBar', 'MouseTimeDisplay']);
+    this.mouseDisplay = player.getDescendant([
+      'ControlBar',
+      'ProgressControl',
+      'SeekBar',
+      'MouseTimeDisplay'
+    ]);
 
     this.addChild(this.tip);
     this.enableTouchActivity();
@@ -101,11 +109,8 @@ class MarkerPoint extends Component {
    */
   updatePosition(duration) {
     console.log(this.offset, duration);
-    this.el_.style.left = (this.offset / duration * 100) + '%';
+    this.el_.style.left = (this.offset / duration) * 100 + '%';
   }
 }
 
-export {
-  MarkerPoint,
-  MarkerPointTip
-};
+export { MarkerPoint, MarkerPointTip };

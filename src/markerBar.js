@@ -1,5 +1,5 @@
 import videojs from 'video.js';
-import {MarkerPoint} from './markerPoint';
+import { MarkerPoint } from './markerPoint';
 
 const Component = videojs.getComponent('Component');
 
@@ -7,7 +7,6 @@ const Component = videojs.getComponent('Component');
  * Only the slider of the marker is displayed
  */
 class MarkerBar extends Component {
-
   /**
    * generate a {@link MarkerBar} instance
    *
@@ -27,7 +26,7 @@ class MarkerBar extends Component {
       markers.push(new MarkerPoint(player, options.markers[i]));
     }
 
-    return new MarkerBar(player, {markers, barName: 'markerPoint'});
+    return new MarkerBar(player, { markers, barName: 'markerPoint' });
   }
 
   /**
@@ -67,6 +66,4 @@ class MarkerBar extends Component {
 
 videojs.registerComponent('MarkerBar', MarkerBar);
 
-export {
-  MarkerBar
-};
+export { MarkerBar };
