@@ -15,11 +15,10 @@
   }
 
   function _setPrototypeOf(o, p) {
-    _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
+    _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) {
       o.__proto__ = p;
       return o;
     };
-
     return _setPrototypeOf(o, p);
   }
 
@@ -282,11 +281,11 @@
 
       _this.el_.appendChild(videojs.dom.createEl('div', {
         className: 'vjs-markers-panel-title'
-      }, {}, '打点记录'));
+      }, {}, 'Marks'));
 
       _this.el_.appendChild(videojs.dom.createEl('div', {
         className: 'vjs-markers-panel-subtitle'
-      }, {}, '点击快速跳转至视频打点处'));
+      }, {}, 'Points of interest'));
 
       _this.el_.appendChild(_this.markerList);
 
@@ -413,8 +412,14 @@
 
     _proto.updateOptions = function updateOptions(options) {
       this.options = videojs.mergeOptions(this.options, options);
-      if (this.markerBar) this.markerBar.dispose();
-      if (this.markerPanel) this.markerPanel.dispose();
+
+      if (this.markerBar) {
+        this.markerBar.dispose();
+      }
+
+      if (this.markerPanel) {
+        this.markerPanel.dispose();
+      }
 
       if (!(this.options.panel === false)) {
         this.player.addChild(this.createMarkersPanel());
